@@ -23,19 +23,26 @@ def CalculateWaveResponse(data):
     #for pnl in data:
     #    vals.append(np.abs(data[pnl]))
 
+    rao = wr.RAO(freq, dirs, vals)
+    #wp = wr.WaveSpectrum(freq,dirs,vals)
+    
     hs = 5.2
     tp = 11.9
 
-    freq, vals = spectrum(hs, tp, gamma=2.351)
-    print("val_len:{0}".format(len(vals)))
-
+    new_freq, one_d_new_vals = spectrum(hs, tp, gamma=2.351)
+    print("new_freq:{0}\nnew_vals:{1}".format(new_freq, one_d_new_vals))
     
 
-    wp = wr.WaveSpectrum(freq,dirs,vals)
+    #make 2 D new values
+    two_d_new_vals = []
+    for val in one_d_new_vals:
+        two_d_new_vals.append([val])
 
-    rao = wr.RAO(freq, dirs, vals)
-
-    res = rao.interpolate()
+    #rao.interpolate(new_freq, dirs, )
+    wp = wr.WaveSpectrum(new_freq,dirs,two_d_new_vals)
+    res = wr.calculate_response(rao,wp,0) as DirectionalSpectrum
+    
+    print(res)
     
     #plt.plot(vals)
     #plt.ylabel('some numbers')

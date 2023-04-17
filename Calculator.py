@@ -40,9 +40,15 @@ def CalculateWaveResponse(data):
 
     #rao.interpolate(new_freq, dirs, )
     wp = wr.WaveSpectrum(new_freq,dirs,two_d_new_vals)
-    res = wr.calculate_response(rao,wp,0) as DirectionalSpectrum
+    res = wr.calculate_response(rao,wp,0)
     
-    print(res)
+    new_calculated_vals= res.grid()[2]
+    
+    plt.plot(new_calculated_vals)
+    plt.plot(vals)
+    plt.show()
+    #print(new_calculated_vals)
+    
     
     #plt.plot(vals)
     #plt.ylabel('some numbers')
